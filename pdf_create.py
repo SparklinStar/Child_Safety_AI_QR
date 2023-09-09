@@ -52,3 +52,50 @@ def create_student_pdf(data_dict, photo_filename, pdf_filename):
 
     # Save the canvas
     c.save()
+
+def create_qr_code_pdf(Name,Birthday, FathersName,MothersName,Address,Gender,Contact,anothercontact,Contact_Email,SchoolName,SchoolAddress,city,state,ZipCode,Country,Blood_Group,Identification_mark,Allergenes):
+        
+        data_dict = {
+            "Name": str(Name),
+            "Date of Birth": str(Birthday),
+            "Address": str(Address),
+            "Father's Name": str(FathersName),
+            "Mother's Name": str(MothersName),
+            "Gender": str(Gender),
+            "Contact No.": str(Contact),
+            "Another Contact No.": str(anothercontact),
+            "Contact Email": str(Contact_Email),
+            "School": str(SchoolName),
+            "School Location": str(SchoolAddress),
+            "City": str(city),
+            
+            "State": str(state),
+            "Country": str(Country),
+            "Zip Code": str(ZipCode),
+            "Blood Group":  str(Blood_Group),
+            "Identification Mark": str(Identification_mark),
+            "Allergen": str(Allergenes),
+        }
+
+
+        photo_filename = "uploaded_image.png" # Provide the path to the student's photo
+        pdf_filename = "student_information_boundary_and_image.pdf"
+        print('photo_filename',photo_filename)
+
+        create_student_pdf(data_dict, photo_filename, pdf_filename)
+        file = print(f"PDF created: {pdf_filename}")
+        
+        pdf_file_path = "student_information_boundary_and_image.pdf" 
+        #file_URL = os.system("curl -F'file=@student_information_boundary_and_image.pdf' https://ttm.sh")
+        #print(file_URL)         
+        # Construct the curl command
+        #curl_command = f"curl -F'file=@{pdf_file_path}' https://ttm.sh"
+        curl_command = f'curl -X POST --data-binary "@{pdf_file_path}" --header "Content-Type: application/pdf" "https://www.filestackapi.com/api/store/S3?key=A2KEL5NMLSdiWJ2LMJP20z"'
+        # Run the curl command and capture the output
+        file_URL = os.popen(curl_command).read().strip()
+        file_URL = file_URL.split('"')[3]
+        print("Uploaded file URL:", str(file_URL))
+        print(file)
+        print(file_URL)
+        return str(str(file_URL))
+
