@@ -68,3 +68,22 @@ with st.form(key="form1"):
         
         seed = st.slider('Seed value', -1, 9999999999, 9635874126)
     genarate = st.form_submit_button(label="Generate", use_container_width=True)
+
+# QR code generation
+if genarate:
+    st.subheader("Uploaded Image")
+    
+    if uploaded_file is None:
+        st.error("Please upload an image to proceed.")
+    else:
+        save_path = "uploaded_image.png"
+        pil_image = Image.open(uploaded_file)
+        pil_image.save(save_path)
+        st.success("Please wait while we generate your QR code, it will take some time")
+        fileURL = str(pdf.create_qr_code_pdf(Name, Birthday, FathersName, MothersName, Address, Gender, Contact,
+                                             anothercontact, Contact_Email, SchoolName, SchoolAddress, city, state,
+                                             ZipCode, Country, Blood_Group, Identification_mark, Allergenes))
+        genimg = QR_Gen.generate_qr_code(fileURL, p_prompt,  seed)
+        image = Image.open(genimg)
+        st.image(image, caption='Generated QR code')
+        st.success("QR code generated successfully")
