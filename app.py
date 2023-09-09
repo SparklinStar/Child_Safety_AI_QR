@@ -7,11 +7,11 @@ import style
 page_bg_img = style.stylespy()  # used for styling the page
 
 # Appname
-st.set_page_config(page_title="Child Safety QRAI 🖌️", layout="wide")
+st.set_page_config(page_title="Child Safety AI QR 🖌️", layout="wide")
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-st.markdown("<h1 style='text-align: center; color: #fff;'>Child Safety QR.AI 🖌️</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #fff;'>Child Safety AI QR 🖌️</h1>", unsafe_allow_html=True)
 
 # Split the page into two columns
 col1, col2 = st.columns(2, gap='medium')
@@ -71,7 +71,7 @@ with st.form(key="form1"):
 
 # QR code generation
 if genarate:
-    st.subheader("Uploaded Image")
+    st.subheader("QR Code Generated")
     
     if uploaded_file is None:
         st.error("Please upload an image to proceed.")
